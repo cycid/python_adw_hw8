@@ -4,6 +4,7 @@ from socket import socket
 from msgutils import recv_msg, send_msg
 import time, datetime
 
+
 range_list=[]
 sep_list=[]
 whole_number_range=20000
@@ -25,18 +26,16 @@ def generator(number_range):
     with socket() as s:
         rec=0
         s.connect(('127.0.0.1', 33653))
-        print(s)
         for num in range(number_range[0],number_range[1] + 1):
            if num > 1:
                for i in range(2, num):
                    if (num % i) == 0:
                        break
                else:
-                   rec+=1
                    print(num)
                    send_msg(s,str(num).encode())
         time.sleep(3)
-        print("sended")
+        print(rec)
         send_msg(s,str(0).encode())
         return
 

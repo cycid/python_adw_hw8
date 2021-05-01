@@ -1,6 +1,6 @@
 from socket import socket
 
-default_header_size = 4
+default_header_size = 10
 default_size_pack = 1024
 encoding = '866'  # OEM866 / cp866
 
