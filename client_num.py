@@ -7,7 +7,8 @@ import time, datetime
 
 range_list=[]
 sep_list=[]
-whole_number_range=20000
+whole_number_range=2000000
+adress = ('127.0.0.1', 33653)
 
 
 def define_range():
@@ -32,11 +33,9 @@ def generator(number_range):
                    if (num % i) == 0:
                        break
                else:
-                   print(num)
                    send_msg(s,str(num).encode())
         time.sleep(3)
-        print(rec)
-        send_msg(s,str(0).encode())
+        #send_msg(s,str(0).encode())
         return
 
 def send_message(sock,value_i):
@@ -48,6 +47,17 @@ def set_up_conn(adress):
         s.connect(adress)
 
 
+def run():
+
+    define_range()
+    set_up_conn(adress)
+
+    t = datetime.datetime.now()
+    with ProcessPoolExecutor(max_workers=5) as p:
+        result = p.map(generator, range_list)
+
+
+
 
 
 
@@ -55,17 +65,6 @@ def set_up_conn(adress):
 
 
 if __name__=="__main__":
-    adress=('127.0.0.1',33653)
-    define_range()
-    set_up_conn(adress)
-    print(f'this is range list{range_list}')
-    t=datetime.datetime.now()
-    with ProcessPoolExecutor(max_workers=5) as p:
-        result=p.map(generator,range_list)
+    pass
 
-    a=datetime.datetime.now()-t
-    #g = datetime.datetime.now()
-    #generator((0,20000))
-    #b=datetime.datetime.now() - g
-    print(f'multi{a}')
-    #print(f'one{b}')
+
